@@ -34,7 +34,7 @@ namespace BookDirectory.Controllers
             }
 
             var author = await _context.Authors
-                .FirstOrDefaultAsync(m => m.Id == id);
+            .Include(_ => _.Books).Where(m => m.Id == id).FirstOrDefaultAsync();
             if (author == null)
             {
                 return NotFound();
